@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="256" height="256" src="/images/icon.svg">
+</p>
+
 # Org Clipper
 
 Org Clipper is a web browser extension for Chrome and Firefox that copies the page
