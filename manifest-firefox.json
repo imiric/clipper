@@ -5,12 +5,16 @@
   "description": "Copies page title and URL in Org format",
   "author": "Ivan Mirić",
   "homepage_url": "https://github.com/imiric/org-clipper",
-  "permissions": ["activeTab", "clipboardWrite", "scripting"],
+  "permissions": ["activeTab", "clipboardWrite", "scripting", "storage"],
   "action": {
     "default_title": "Copy page title and URL in Org Format"
   },
   "background": {
     "scripts": ["background.js"]
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
   },
   "commands": {
     "_execute_action": {

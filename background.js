@@ -5,25 +5,29 @@ if (typeof browser === "undefined") {
 }
 
 browser.action.onClicked.addListener((tab) => {
-  browser.scripting.executeScript({
-    target: {tabId: tab.id},
-    func: copyToClipboard
-  }).then(() => {
-    // Show visual feedback
-    browser.action.setBadgeText({text: "✓", tabId: tab.id});
-    browser.action.setBadgeBackgroundColor({color: "#4CAF50", tabId: tab.id});
+  browser.storage.sync.get({ headlineLevel: 3 }).then(options => {
+    browser.scripting.executeScript({
+      target: {tabId: tab.id},
+      func: copyToClipboard,
+      args: [options.headlineLevel]
+    }).then(() => {
+      // Show visual feedback
+      browser.action.setBadgeText({text: "✓", tabId: tab.id});
+      browser.action.setBadgeBackgroundColor({color: "#4CAF50", tabId: tab.id});
 
-    // Clear the badge after 1.5 seconds
-    setTimeout(() => {
-      browser.action.setBadgeText({text: "", tabId: tab.id});
-    }, 1500);
+      // Clear the badge after 1.5 seconds
+      setTimeout(() => {
+        browser.action.setBadgeText({text: "", tabId: tab.id});
+      }, 1500);
+    });
   });
 });
 
-function copyToClipboard() {
+function copyToClipboard(headlineLevel) {
   const title = document.title;
   const url = document.location.href;
-  const orgFormat = `*** ${title}\n:PROPERTIES:\n:url: ${url}\n:END:\n\n`;
+  const headlineStars = '*'.repeat(headlineLevel);
+  const orgFormat = `${headlineStars} ${title}\n:PROPERTIES:\n:url: ${url}\n:END:\n\n`;
 
   return navigator.clipboard.writeText(orgFormat)
     .then(() => true)

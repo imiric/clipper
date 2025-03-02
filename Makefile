@@ -1,5 +1,5 @@
 EXTENSION_NAME := org-clipper
-COMMON_FILES := background.js
+COMMON_FILES := background.js options.html options.js
 VERSION := $(shell git describe --tags --abbrev=10 --always --dirty | sed 's/^v//')
 
 .PHONY: all
