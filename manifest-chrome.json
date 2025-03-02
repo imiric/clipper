@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Org Clipper",
+  "version": "0.0.0",
+  "description": "Copies page title and URL in Org format",
+  "author": "Ivan Mirić",
+  "homepage_url": "https://github.com/imiric/org-clipper",
+  "permissions": ["activeTab", "clipboardWrite", "scripting"],
+  "action": {
+    "default_title": "Copy page title and URL in Org Format"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+O"
+      },
+      "description": "Copy page title and URL in Org format"
+    }
+  }
+}

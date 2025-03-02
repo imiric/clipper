@@ -10,8 +10,7 @@
     "default_title": "Copy page title and URL in Org Format"
   },
   "background": {
-    "scripts": ["background.js"],
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
   },
   "commands": {
     "_execute_action": {
