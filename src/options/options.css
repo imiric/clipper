@@ -61,6 +61,11 @@ textarea {
      The goal is to avoid the text from shifting when switching from one
      to the other. */
   padding: 5px 1px;
+  /* Special handling for Firefox, which doesn't apply padding in select
+     elements as expected. See https://github.com/twbs/bootstrap/issues/37748
+     The issue mentions it has been fixed, but I still experience it in LibreWolf v136.
+  */
+  -moz-padding-start: 5px;
 }
 
 #template-select option {
