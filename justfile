@@ -7,6 +7,7 @@ default:
   @just --list
 
 build: chrome firefox
+  @(cd "{{dist}}" && sha256sum * > sha256sum.txt)
 
 chrome:
   @mkdir -p {{dist}}
