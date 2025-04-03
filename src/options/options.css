@@ -10,6 +10,9 @@
   --cancel-color: #d66666;
   --error-color: red;
   --success-color: green;
+  --tooltip-background: color-mix(in srgb, var(--background-color) 95%, black);
+  --tooltip-border: var(--border-color);
+  --tooltip-code-background: color-mix(in srgb, var(--background-color) 90%, black);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +23,9 @@
     --border-color: #858585;
     --action-button-color: #e3e3e3;
     --disabled-mixin-color: black;
+    --tooltip-background: color-mix(in srgb, var(--background-color) 90%, white);
+    --tooltip-border: var(--border-color);
+    --tooltip-code-background: color-mix(in srgb, var(--background-color) 85%, white);
   }
 
   /* Override any default browser styles */
@@ -47,7 +53,6 @@ textarea {
    font-family: monospace;
    box-sizing: border-box;
 }
-.template-hint { font-size: 0.8em; color: #666; margin-top: 5px; }
 .form-group { margin: 5px 0; }
 
 #template-selector {
@@ -93,6 +98,11 @@ textarea {
   border-radius: 2px;
 }
 
+#action-buttons {
+  position: relative;
+  width: 100%;
+}
+
 #action-buttons .button-group {
   display: flex;
   gap: 5px;
@@ -100,6 +110,12 @@ textarea {
 
 #action-buttons .button-group.edit {
   display: none;
+}
+
+#action-buttons .button-group.extra {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 #action-buttons button {
@@ -134,6 +150,65 @@ textarea {
   color: var(--cancel-color);
 }
 
+#action-buttons .help {
+  position: relative;
+  cursor: help !important;
+}
+
+#action-buttons .help-tooltip {
+  visibility: hidden;
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;  /* chevron offset */
+  width: 280px;
+  background: var(--tooltip-background);
+  border: 1px solid var(--tooltip-border);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.8em;
+  line-height: 1.2;
+  color: var(--text-color);
+  text-align: left;
+  cursor: default;
+  user-select: text;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+#action-buttons .help-tooltip p {
+  margin: 0 0 6px 0;
+}
+
+#action-buttons .help-tooltip ul {
+  margin: 0;
+  padding-left: 10px;
+}
+
+#action-buttons .help-tooltip li {
+  margin: 6px 0 0 0;
+}
+
+#action-buttons .help-tooltip code {
+  background-color: var(--tooltip-code-background);
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: var(--text-color);
+}
+
+#action-buttons .help-tooltip::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: calc(0px + 12px - 5px);  /* offset + half-button-width - ~half-chevron-width */
+  border-width: 0 6px 6px;
+  border-style: solid;
+  border-color: transparent transparent var(--tooltip-background);
+  filter: drop-shadow(0 -1px 0 var(--tooltip-border));
+}
+
+#action-buttons .help:hover .help-tooltip {
+  visibility: visible;
+}
+
 #template-content {
   padding: 5px;
   color: var(--text-color);
@@ -156,7 +231,7 @@ textarea {
 
 footer {
   position: relative;
-  margin-top: 20px;
+  margin-top: 10px;
   height: 32px;
   width: 100%;
 }
