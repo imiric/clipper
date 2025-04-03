@@ -1,13 +1,13 @@
 {
   "manifest_version": 3,
-  "name": "Org Clipper",
+  "name": "Clipper",
   "version": "0.1.0",
-  "description": "Copies page title and URL in Org format",
+  "description": "Copies page information in various formats",
   "author": "Ivan Mirić",
-  "homepage_url": "https://github.com/imiric/org-clipper",
+  "homepage_url": "https://github.com/imiric/clipper",
   "permissions": ["activeTab", "clipboardWrite", "scripting", "storage"],
   "action": {
-    "default_title": "Copy page title and URL in Org Format",
+    "default_title": "Copy page information using the default template",
     "default_icon": {
       "16": "assets/icons/icon16.png",
       "24": "assets/icons/icon24.png",
@@ -35,9 +35,9 @@
   "commands": {
     "_execute_action": {
       "suggested_key": {
-        "default": "Alt+O"
+        "default": "Alt+C"
       },
-      "description": "Copy page title and URL in Org format"
+      "description": "Copy page information using the default template"
     }
   }
 }
