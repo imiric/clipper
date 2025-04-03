@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="stylesheet" href="options.css">
+    <script type="module" src="../vendor/miu.min.js"></script>
+  </head>
+
+  <body>
+    <h2>Template Settings</h2>
+
+    <div class="form-group">
+      <div id="template-selector">
+        <select id="template-select"
+                data-miu-for="template.collection"
+                data-miu-bind="ui.selectTemplate@change">
+          <template>
+            <option data-miu-bind="$key->text $key->value"></option>
+          </template>
+        </select>
+
+        <input id="template-name" type="text" placeholder="Template name"
+               data-miu-bind="ui.templateName<->value@input">
+        <div id="action-buttons">
+          <div class="button-group manage">
+            <button class="edit" data-miu-bind="ui.editTemplate@click" title="Edit the selected template">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+            </button>
+            <button class="add" title="Add a new template"
+                    data-miu-bind="ui.addTemplate@click">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            </button>
+            <button class="delete" title="Delete the selected template"
+                    data-miu-bind="ui.deleteTemplate@click">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-minus"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+            </button>
+          </div>
+
+          <div class="button-group edit">
+            <button class="save"
+                    title="Save changes"
+                    data-miu-bind="ui.saveChanges@click">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            </button>
+            <button class="discard"
+                    title="Discard changes"
+                    data-miu-bind="ui.discardChanges@click">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <textarea id="template-content"
+        data-miu-bind="ui.templateContent<->value@input ui.templateContent->text"
+        placeholder="Template content" disabled></textarea>
+      <div class="template-hint">
+        Use $TITLE to insert the page title and $URL to insert the page URL
+      </div>
+    </div>
+
+    <footer>
+      <div class="button-status-container">
+        <p id="status"></p>
+        <button id="save-settings" data-miu-bind="ui.saveSettings@click">Save</button>
+      </div>
+      <a id="restore-original" data-miu-bind="ui.restoreOriginal@click">Restore original templates</a>
+    </footer>
+
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

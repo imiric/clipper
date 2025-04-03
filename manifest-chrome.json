@@ -9,24 +9,29 @@
   "action": {
     "default_title": "Copy page title and URL in Org Format",
     "default_icon": {
-      "16": "images/icon16.png",
-      "24": "images/icon24.png",
-      "32": "images/icon32.png"
+      "16": "assets/icons/icon16.png",
+      "24": "assets/icons/icon24.png",
+      "32": "assets/icons/icon32.png"
     }
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background/background.js",
+    "type": "module"
   },
   "options_ui": {
-    "page": "options.html",
+    "page": "src/options/options.html",
     "open_in_tab": false
   },
   "icons": {
-    "16": "images/icon16.png",
-    "32": "images/icon32.png",
-    "48": "images/icon48.png",
-    "128": "images/icon128.png"
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
   },
+  "web_accessible_resources": [{
+    "resources": ["src/vendor/*"],
+    "matches": ["<all_urls>"]
+  }],
   "commands": {
     "_execute_action": {
       "suggested_key": {
