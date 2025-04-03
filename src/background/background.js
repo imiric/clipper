@@ -14,6 +14,8 @@ browser.runtime.onInstalled.addListener((details) => {
   }
 });
 
+let badgeTimeoutId;
+
 async function handleAction(tab) {
   const options = await browser.storage.sync.get(["templates", "defaultTemplate"]);
   // Get the default template or fall back to another available one
@@ -29,18 +31,23 @@ async function handleAction(tab) {
     }
   }
 
-  await browser.scripting.executeScript({
-    target: {tabId: tab.id},
-    func: copyToClipboard,
-    args: [templateContent]
-  });
+  try {
+    await browser.scripting.executeScript({
+      target: {tabId: tab.id},
+      func: copyToClipboard,
+      args: [templateContent]
+    });
 
-  // Show visual feedback
-  browser.action.setBadgeText({text: "✓", tabId: tab.id});
-  browser.action.setBadgeBackgroundColor({color: "#4CAF50", tabId: tab.id});
+    browser.action.setBadgeText({text: "✓", tabId: tab.id});
+    browser.action.setBadgeBackgroundColor({color: "#4CAF50", tabId: tab.id});
+  } catch (error) {
+    browser.action.setBadgeText({text: "✗", tabId: tab.id});
+    browser.action.setBadgeBackgroundColor({color: "#FF0000", tabId: tab.id});
+    console.info(`[Clipper] Failed copying information on ${tab.url}:`, error);
+  }
 
-  // Clear the badge after 1.5 seconds
-  setTimeout(() => {
+  clearTimeout(badgeTimeoutId);
+  badgeTimeoutId = setTimeout(() => {
     browser.action.setBadgeText({text: "", tabId: tab.id});
   }, 1500);
 }
@@ -55,7 +62,7 @@ function copyToClipboard(templateString) {
   return navigator.clipboard.writeText(formattedText)
     .then(() => true)
     .catch(err => {
-      console.error('Failed to copy: ', err);
+      console.error('[Clipper] Failed copying to clipboard:', err);
       return false;
     });
 }
