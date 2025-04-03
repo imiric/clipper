@@ -5,7 +5,7 @@
   "description": "Copies page information in various formats",
   "author": "Ivan Mirić",
   "homepage_url": "https://github.com/imiric/clipper",
-  "permissions": ["activeTab", "clipboardWrite", "scripting", "storage"],
+  "permissions": ["activeTab", "clipboardWrite", "contextMenus", "scripting", "storage"],
   "action": {
     "default_title": "Copy page information using the default template",
     "default_icon": {
