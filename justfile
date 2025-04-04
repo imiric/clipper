@@ -1,6 +1,6 @@
 name := "clipper"
 version := `git describe --tags --abbrev=10 --always --dirty | sed 's/^v//'`
-common_files := "src/* assets/*"
+common_files := "src/* assets/icons/*"
 dist := "dist"
 
 default:

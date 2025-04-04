@@ -1,22 +1,8 @@
-<p align="center">
-  <img width="256" height="256" src="/images/icon.svg">
-</p>
+# Clipper <img width="64" height="64" src="/assets/icons/icon.svg">
 
-# Org Clipper
-
-Org Clipper is a web browser extension for Chrome and Firefox that copies the page
-title and URL of the current tab in [Org format](https://orgmode.org/).
-
-The contents of the clipboard will be something like:
-
-```Org
-*** Example title
-:PROPERTIES:
-:url: https://example.com/
-:END:
-```
-
-This can then be pasted in an Org document.
+Clipper is a web browser extension for Chrome and Firefox that allows copying page
+information such as title and URL to the clipboard. The contents can be customized
+via templates.
 
 
 ## Install
@@ -36,8 +22,9 @@ On Firefox, you will need to set `xpinstall.signatures.required` to `false` on t
 `about:config` page. Then click on the cog wheel on the "Manage Your Extensions"
 page, and "Install Add-on From File...".
 
-Alternatively, if you prefer to build the packages yourself, clone the Git repository
-and run `make`. Then manually add the built packages to your browser.
+Alternatively, if you prefer to build the packages yourself, clone the Git
+repository, install [Just](https://just.systems/man/en/). and run `just build`.
+Then manually add the packages built in the `dist` directory to your browser.
 
 In Chrome, you could also load the extension directory without building the extension
 via the "Load unpacked" option. This is useful during development.
@@ -45,10 +32,45 @@ via the "Load unpacked" option. This is useful during development.
 
 ## Usage
 
-Click on the extension icon in the toolbar or use the Alt+o keyboard shortcut.
+Click on the extension icon in the toolbar or use the Alt+c keyboard shortcut to copy
+information about the page in the current tab using the default template.
 
-On the extension options page you can modify the preferred headline level. The
-default is 3.
+Clipper comes with three templates out-of-the-box:
+- Markdown:
+  ```md
+  ### [$TITLE]($URL)
+  
+  
+  ```
+
+- Org Mode:
+  ```org
+  *** $TITLE
+  :PROPERTIES:
+  :url: $URL
+  :END:
+  
+  
+  ```
+
+- Plain (default):
+  ```
+  Title: $TITLE
+  URL: $URL
+  
+  ```
+
+On the extension options page you can modify, add or delete templates:
+
+![Options page](/assets/images/options.png)
+
+You can change the default template by selecting it and pressing "Save". This can
+also be changed via the context menu in the toolbar:
+
+![Context menu](/assets/images/context_menu.png)
+
+You can use variables `$TITLE` and `$URL` in templates to insert the page title and
+URL respectively.
 
 
 ## License
