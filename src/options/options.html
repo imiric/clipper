@@ -17,7 +17,7 @@
                 data-miu-for="template.collection"
                 data-miu-bind="ui.selectTemplate@change">
           <template>
-            <option data-miu-bind="$key->text $key->value"></option>
+            <option data-miu-bind="$key->value ui.optionText->text"></option>
           </template>
         </select>
 

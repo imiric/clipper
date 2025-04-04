@@ -137,6 +137,14 @@ const uiStore = new Store('ui', {
     });
   },
 
+  optionText(bindCtx) {
+    let text = bindCtx.key;
+    if (bindCtx.key === templateStore.default) {
+      text += ' (default)';
+    }
+    return text;
+  },
+
   restoreOriginal() {
     for (const name in ORIGINAL_TEMPLATES) {
       templateStore.collection[name] = ORIGINAL_TEMPLATES[name];
@@ -175,6 +183,14 @@ uiStore.$subscribe('editing', (value) => {
 uiStore.$subscribe('selected', (value) => {
   uiStore.templateContent = templateStore.collection[value];
   document.querySelector('#template-select').value = value;
+});
+
+// Hack to trigger updates of the select option text that marks the default
+// template whenever it changes. Ideally Miu should support computed values
+// properly and keep track of these dependencies internally, but that's a
+// complexity that I wish to avoid for now.
+templateStore.$subscribe('default', (value) => {
+  uiStore.optionText = uiStore.optionText;
 });
 
 bind(document.body, [templateStore, uiStore]);
