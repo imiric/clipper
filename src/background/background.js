@@ -57,9 +57,22 @@ browser.action.onClicked.addListener(handleAction);
 function copyToClipboard(templateString) {
   const formattedText = templateString
     .replace(/\$TITLE/g, document.title)
-    .replace(/\$URL/g, document.location.href);
+    .replace(/\$URL/g, document.location.href)
+    .replace(/\$SELECTION/g, document.getSelection().toString());
 
-  return navigator.clipboard.writeText(formattedText)
+  // Simple HTML detection - check if it contains HTML tags
+  const hasHtmlTags = /<[^>]+>/.test(formattedText);
+  
+  const clipboardItem = hasHtmlTags ? 
+    new ClipboardItem({
+      "text/html": new Blob([formattedText], { type: "text/html" }),
+      "text/plain": new Blob([formattedText.replace(/<[^>]*>/g, '')], { type: "text/plain" })
+    }) :
+    new ClipboardItem({
+      "text/plain": new Blob([formattedText], { type: "text/plain" })
+    });
+
+  return navigator.clipboard.write([clipboardItem])
     .then(() => true)
     .catch(err => {
       console.error('[Clipper] Failed copying to clipboard:', err);
